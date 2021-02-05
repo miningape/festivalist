@@ -1,0 +1,22 @@
+{
+  "name": "festivalist",
+  "version": "0.0.1",
+  "description": "RUC Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "¨"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miningape/festivalist.git"
+  },
+  "keywords": [
+    "Festivals"
+  ],
+  "author": "Dennis, Robert, Salma, Kyle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miningape/festivalist/issues"
+  },
+  "homepage": "https://github.com/miningape/festivalist#readme"
+}
