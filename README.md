@@ -1,5 +1,11 @@
 # festivalist
-Lukys fantastic idea
+* Lukys fantastic idea
+
+# Git Process
+. Make sure you have the repo on your local system
+'''bash
+git clone <link-to-github-repo>
+'''
 
 # Install list
 * Either Chrome or Firefox (No Safari, No IE/edge, necessary)
