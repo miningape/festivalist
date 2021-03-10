@@ -3,28 +3,28 @@
 
 # Git Process
 0. Make sure you have the repo on your local system
-```bash
+```terminal
 git clone <link-to-github-repo>
 ```
 1. Update to latest changes
-```bash
+```terminal
 git pull
 ```
 2. Update npm, to latest
-```bash
+```terminal
 npm install 
 ```
 3. Make changes to files and stuff ;)
 4. Stage git (<filename> can be . to include the whole directory)
-```bash
+```terminal
 git add .
 ```
 5. Commit changes (make a good change message/maybe even a change doc)
-```bash
+```terminal
 git commit -m 'write what you did here'
 ```
 6. Finally push those changes (if we use branches this might be different) 
-```bash
+```terminal
 git push
 ```
 
