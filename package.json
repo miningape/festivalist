@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/miningape/festivalist/issues"
   },
-  "homepage": "https://github.com/miningape/festivalist#readme"
+  "homepage": "https://github.com/miningape/festivalist#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
