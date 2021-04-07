@@ -1,12 +1,13 @@
+
 .header {
     position: sticky;
-    text-align: center;
     margin: auto;
     color: #ffa600;
-    width: 20%;
-    border-right-style: solid;
-    border-bottom-style: solid;
-    border-left-style: solid;
+    
+}
+
+.border-custom {
+    display: inline-block;
     border-color: #ffffff;
     border-radius: 0px 0px 30px 30px
 }
