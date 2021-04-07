@@ -1,0 +1,24 @@
+.header {
+    top: 0px;
+    position: sticky;
+    text-align: center;
+    margin: auto;
+    color: #ffa600;
+    width: 20%;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-color: #ffffff;
+}
+
+.primary-color {
+    color: #000000
+}
+
+.secondary-color {
+    color:  #ffa600
+}
+
+.tertiary-color {
+    color: #ffffff
+}
