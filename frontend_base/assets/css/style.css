@@ -12,6 +12,10 @@
     border-radius: 0px 0px 30px 30px
 }
 
+.icon-custom {
+    font-size: 1.5rem;
+}
+
 .primary-color {
     color: #000000
 }
