@@ -14,72 +14,27 @@ Colour code scheme RGB-69,69,69 for background stuff !-->
         <!-- Custom CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
 
+        <!-- components -->
+        
+
         <title>Festivalist</title>
     </head>
     <body class="px-3 pb-3 mb-2 bg-dark text-white">
+        <header-component></header-component>
 
-        <div class="header container ">
-            <div class="row d-flex justify-content-between">
-                <div class="col d-flex flex-row mt-2">
-                    <i class="fas fa-bars icon-custom change-to-list-view"></i>
-                </div>
-
-                <div class="col  text-center">
-                    <h1 class="border px-3 pb-1 border-top-0 border-5 border-custom bg-dark"> Festivalist </h1> 
-                </div>  
-
-                <div class="col d-flex flex-row-reverse mt-2">
-                    <i class="fas fa-search icon-custom search"></i>
-                </div>
-            </div>
-        </div>
         <div class="text-center">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" class="map">
         </div>
 
-        <div class="info container secondary-color">
-            <h3>
-                Festival Title
-            </h3>
-            <p>
-                Type: genre
-            </p>
-            <p>
-                Location
-            </p>
-            <p>
-                Lineup
-            </p>
-            <p>
-                Ticket Price
-            </p>
-            <p>
-        </div>
-        
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
-         <p>large test</p>
+        <info-component></info-component>
 
         <!-- Bootstrap JS bundle CDN -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     
         <!-- Custom JS -->
         <script src="assets/js/main.js"></script>
+
+        <script src="assets/js/components/header.js" type="text/javascript" defer></script>
+        <script src="assets/js/components/info.js" type="text/javascript" defer></script>
     </body>
 </html>
