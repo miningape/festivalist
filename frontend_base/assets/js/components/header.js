@@ -1,3 +1,8 @@
+/*
+    To change the header change the string literal 
+        in the function getHTML(page) 
+ */
+
 const PRIMARY_PAGE = "primary.html";
 const SECONDARY_PAGE = "secondary.html";
 
