@@ -35,7 +35,7 @@ function getHTML(page) {
                 </div>
 
                 <div class="col text-center">
-                    <h1 class="border px-3 pb-1 border-top-0 border-5 border-custom bg-dark"> Festivalist </h1> 
+                    <button onclick="topFunction()" id="go-to-top-button" class="border px-3 pb-1 border-top-0 border-5 border-custom bg-dark secondary-color"> Festivalist </h1> 
                 </div>  
 
                 <div class="col d-flex flex-row-reverse mt-2">
