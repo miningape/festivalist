@@ -1,3 +1,10 @@
+:root {
+    /* colours */
+    --primary-color:#000000;
+    --secondary-color:#ffa600;
+    --tertiary-color:#ffffff;
+    /* to use put them in var() */
+}
 
 .header {
     top: 0px;
@@ -17,13 +24,16 @@
 }
 
 .primary-color {
-    color: #000000
+    color: var(--primary-color);
 }
 
 .secondary-color {
-    color:  #ffa600
+    color:  var(--secondary-color);
+}
+.secondary-color:hover {
+    color: var(--secondary-color);
 }
 
 .tertiary-color {
-    color: #ffffff
+    color: var(--tertiary-color);
 }
