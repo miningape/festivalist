@@ -8,6 +8,7 @@
 
 .header {
     top: 0px;
+    z-index: 20;
     position: sticky;
     margin: auto;
     color: #ffa600;
@@ -17,6 +18,12 @@
     display: inline-block;
     border-color: #ffffff;
     border-radius: 0px 0px 30px 30px
+}
+
+#map {
+    z-index: 5;
+    height: 90vh;
+    width: 100%;
 }
 
 #go-to-top-button {
