@@ -13,28 +13,36 @@ Colour code scheme RGB-69,69,69 for background stuff !-->
         <!-- Bootstrap JS bundle CDN -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
+        <!-- Probably not a good way of loading the database
+            it just creates a script that is generated from the database
+         -->
+        <script>
+            /* 
+                The <%%> tag adds JSON (that was sent from server) and adds it to this HTML
+                script tag before it is sent to the user
+            */
+            const FestivalsJSON = <%- JSON.stringify(DATABASE) %>;
+        </script>
+
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/assets/css/style.css">
-    
+        <link rel="stylesheet" href="assets/css/style.css">
+
         <!-- Custom JS -->
         <script src="/assets/js/main.js"></script>
-        
-        
-        <!-- Components -->
-        <script src="/assets/js/components/header.js" type="text/javascript" defer></script>
-        <script src="/assets/js/components/info.js" type="text/javascript" defer></script>
 
         <title>Festivalist</title>
     </head>
     <body class="px-3 pb-3 mb-2 bg-dark text-white">
-        <primary-header-component></primary-header-component>
+        <%- include('partials/header', {page: 'primary'}) %>
 
-        <!-- div that holds the map-->
-        <div id="map">
-            
+        <!-- div that postions map -->
+        <div class="d-flex justify-content-center p-2">
+            <!-- div that holds the map-->
+            <div id="map" class="d-flex justify-content-center"></div>
         </div>
 
-        <info-component></info-component>
+        <!-- Include info -->
+        <%- include('partials/info') %>
         
         <!-- Maps API -->
         <script

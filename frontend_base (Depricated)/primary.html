@@ -1,0 +1,44 @@
+<!--we need to fill this out, it will be our landing page
+Colour code scheme RGB-69,69,69 for background stuff !-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Font awesome -->
+        <script src="https://kit.fontawesome.com/939bc6dcd6.js" crossorigin="anonymous"></script>
+        <!-- Bootstrap CSS CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <!-- Bootstrap JS bundle CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="assets/css/style.css">
+        
+        <!-- Components -->
+        <script src="assets/js/components/header.js" type="text/javascript" defer></script>
+        <script src="assets/js/components/info.js" type="text/javascript" defer></script>
+
+        <!-- Custom JS -->
+        <script src="assets/js/main.js"></script>
+
+        <title>Festivalist</title>
+    </head>
+    <body class="px-3 pb-3 mb-2 bg-dark text-white">
+        <primary-header-component></primary-header-component>
+
+        <!-- div that postions map -->
+        <div class="d-flex justify-content-center p-2">
+            <!-- div that holds the map-->
+            <div id="map" class="d-flex justify-content-center"></div>
+        </div>
+
+        <info-component></info-component>
+        
+        <!-- Maps API -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw9h1Ix5vNpOwcpoVlRkluEv69el6IOUc&callback=initMap" async>
+        </script>
+    </body>
+</html>

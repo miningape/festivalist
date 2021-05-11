@@ -28,24 +28,22 @@ const FestivalsJSON = {
  * called through the callback= property on the script element that includes the maps api
  */
 function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.querySelector("#map"), {
         center: { lat: 0, lng: 0 },
         zoom: 2.7,
     });
 
     FestivalsJSON.list.forEach( festival => {
-        new google.maps.Marker( {
+        const marker = new google.maps.Marker( {
             position: festival.coords,
             title: festival.name,
             map: map,
         } );
+
+        marker.addListener( "click", () => {
+            document.querySelector("#festival-name").innerHTML = festival.name;
+        });
     } )
-
-    const roskildeFestival =
-
-    roskildeFestival.addListener("click", () => {
-        console.log("Roskilde Festival Was Clicked")
-    })
 }
 
 

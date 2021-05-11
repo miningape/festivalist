@@ -6,8 +6,8 @@ class Info extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="info container secondary-color">
-                <h3>
-                    Festival Title
+                <h3 id="festival-name">
+                    Festival Title:
                 </h3>
                 <p>
                     Type: genre

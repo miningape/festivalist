@@ -1,0 +1,51 @@
+:root {
+    /* colours */
+    --primary-color:#000000;
+    --secondary-color:#ffa600;
+    --tertiary-color:#ffffff;
+    /* to use put them in var() */
+}
+
+.header {
+    top: 0px;
+    z-index: 20;
+    position: sticky;
+    margin: auto;
+    color: #ffa600;
+}
+
+.border-custom {
+    display: inline-block;
+    border-color: #ffffff;
+    border-radius: 0px 0px 30px 30px
+}
+
+#map {
+    z-index: 10;
+    top: 0;
+    height: 85vh;
+    width: 98vw;
+}
+
+#go-to-top-button {
+    font-size:35px;
+}
+
+.icon-custom {
+    font-size: 1.5rem;
+}
+
+.primary-color {
+    color: var(--primary-color);
+}
+
+.secondary-color {
+    color:  var(--secondary-color);
+}
+.secondary-color:hover {
+    color: var(--secondary-color);
+}
+
+.tertiary-color {
+    color: var(--tertiary-color);
+}
