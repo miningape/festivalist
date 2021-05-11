@@ -1,3 +1,6 @@
+let zoomLevel = 4.5;
+let lastClick = null;
+
 // Useless function called on start for testing
 (main = () => {
     console.log("Testing")
@@ -34,12 +37,35 @@ function initMap() {
             
             // Change the CSS of the info area so we can see it
             info.style.display = 'block';
+
+            // Center map around point and zoom
+            map.panTo( festival.coords );
+
+            if ( lastClick != festival.name ) {
+                zoomLevel = 4.5;
+                lastClick = festival.name;
+            }
+            map.setZoom( zoomLevel += 0.5 );
+
+            // Scroll down to information
+            window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
         });
     } )
 }
 
 function hideInfo() {
     document.querySelector('.info').style.display = 'none';
+}
+
+function slideSearch() {
+    // Make search area active so we can see it or the other way
+    document.querySelector('#search-bar').classList.toggle('active');
+
+    // Change button to bars/close
+    const btn = document.querySelector('#search-activate-btn')
+    btn.classList.toggle("rotate")
+    btn.classList.toggle("fa-bars");
+    btn.classList.toggle("fa-times");
 }
 
 

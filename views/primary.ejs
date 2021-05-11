@@ -1,5 +1,3 @@
-<!--we need to fill this out, it will be our landing page
-Colour code scheme RGB-69,69,69 for background stuff !-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,30 +17,39 @@ Colour code scheme RGB-69,69,69 for background stuff !-->
         <script>
             /* 
                 The <%%> tag adds JSON (that was sent from server) and adds it to this HTML
-                script tag before it is sent to the user
+                script tag before it is sent to the user, vscode is stupid so it thinks this is an error but its not
             */
             const FestivalsJSON = <%- JSON.stringify(DATABASE) %>;
         </script>
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/search.css">
 
         <!-- Custom JS -->
         <script src="/assets/js/main.js"></script>
 
         <title>Festivalist</title>
     </head>
-    <body class="px-3 pb-3 mb-2 bg-dark text-white">
+    <body class="bg-dark text-white">
+        <!-- Helper-holder is to set, width and height which allows the bar to slide in without lots of issues -->
+        
+            <!-- Include the head -->
         <%- include('partials/header', {page: 'primary'}) %>
+        
+        <div class="helper">
+            <!-- Include search --> 
+            <%- include('partials/search') %>
 
-        <!-- div that postions map -->
-        <div class="d-flex justify-content-center p-2">
-            <!-- div that holds the map-->
-            <div id="map" class="d-flex justify-content-center"></div>
+            <!-- div that postions map -->
+            <div class="d-flex justify-content-center">
+                <!-- div that holds the map-->
+                <div id="map" class="d-flex justify-content-center"></div>
+            </div>
+
+            <!-- Include info -->
+            <%- include('partials/info') %>
         </div>
-
-        <!-- Include info -->
-        <%- include('partials/info') %>
         
         <!-- Maps API -->
         <script

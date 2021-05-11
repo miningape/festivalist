@@ -2,7 +2,6 @@
 // https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 const express = require('express');
 const app = express();
-
 const PORT = 3000;
 
 
@@ -23,6 +22,39 @@ const DATABASE = {
                 lng: 12.079475
             }
         },
+        {
+            name: "Coachella",
+            type: "Music/Art Festival",
+            locationDescription: "Empire Polo Club in Indio, California",
+            lineup: "To Be Announced, Rex Orange County",
+            price: "USD 300",
+            coords: {
+                lat: 33.694756, 
+                lng: -116.152558
+            }
+        },
+        {
+            name: "Tomorrowland",
+            type: "Music Festival / Electronic",
+            locationDescription: "De Schorre Recreation Ground, Boom, Belgium",
+            lineup: "Billie Eilish, Lewis Copaldi, Marchmello, Camila Cabelo, Stormzy, Post Malone",
+            price: "EUR 69",
+            coords: {
+                lat: 51.091666, 
+                lng: 4.379873
+            }
+        },
+        {
+            name: "All Points East",
+            type: "Music Festival / Electronic, Pop",
+            locationDescription: "Victoria Park, London, England",
+            lineup: "Fals, Jamie XX, Jorja Smith",
+            price: "GBP 69",
+            coords: {
+                lat: 51.536390, 
+                lng: -0.039803
+            }
+        },
         { 
             name: "Burning Man",
             type: "Music Festival / Rock",
@@ -37,13 +69,15 @@ const DATABASE = {
     ],
 };
 
+/* Kinda Like Settings For The Server */
 // Static HTML & CSS files, served on the '/assets' route
 app.use( '/assets', express.static(__dirname + '/assets') );
 
 // Set view engine to EJS (just allows for a shortcut in the code)
 app.set('view engine', 'ejs');
 
-// First route to the '/' uri
+
+/* URIs the User Can Access */
 app.get('/', (req, res) => {
     res.render('primary', {DATABASE: DATABASE});
 })
@@ -52,7 +86,7 @@ app.get('/list', (req, res) => {
     res.render('secondary');
 })
 
-
+/* Start the server */
 app.listen( PORT, () => {
     console.log('Hosted On: localhost:3000 or 127.0.0.1:3000')
 })

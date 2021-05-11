@@ -6,12 +6,50 @@
     /* to use put them in var() */
 }
 
+html, body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+}
+
+.helper {
+    position: relative;
+    overflow: hidden;
+    min-height: 93vh;
+}
+
 .header {
-    top: 0px;
+    top: 0;
     z-index: 20;
+    height: 7vh;/* VERY important for positioning search bar */
     position: sticky;
     margin: auto;
     color: #ffa600;
+}
+
+.header i {
+    font-size: 2.0em;
+}
+
+.rotate {
+    transform-origin: 50%, 50%;
+    -webkit-transition: all 1s linear;  
+    -moz-transition: all 1s linear;  
+    -o-transition: all 1s linear;  
+    -ms-transition: all 1s linear;  
+    animation: all 1s linear 1;
+}
+
+@keyframes rotation {
+   
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+.header .col :hover{
+    cursor: pointer;
 }
 
 .info {
@@ -43,7 +81,7 @@
 #map {
     z-index: 10;
     top: 0;
-    height: 85vh;
+    height: 93vh;
     width: 98vw;
 }
 

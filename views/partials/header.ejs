@@ -1,18 +1,19 @@
-<div class="header container ">
+<div class="header container">
     <div class="row d-flex justify-content-between">
         <div class="col d-flex flex-row mt-2">
-            <!-- checks if page is primary and includes relevant data -->
+            <!-- checks if page is primary and includes relevant data with a ternary operator -->
             <a href="<%= (page == 'primary') ? '/list' : '/' %>" class="secondary-color">
-                <i class="fas <%= (page == 'primary') ? 'fa-bars' : 'fa-map-marker-alt' %> icon-custom"></i>
+                <!-- fa-map-marker-alt fa-search "></i> -->
+                <i title="<%- (page == 'primary') ? 'List View' : 'Map View' %>" class="fas <%= (page == 'primary') ? 'fa-list-alt' : 'fa-compass' %> icon-custom"></i>
             </a>
         </div>
 
         <div class="col text-center">
-            <button onclick="topFunction()" id="go-to-top-button" class="border px-3 pb-1 border-top-0 border-5 border-custom bg-dark secondary-color"> Festivalist </h1> 
+            <h1 onclick="topFunction()" id="go-to-top-button" class="border px-3 pb-1 border-top-0 border-5 border-custom bg-dark secondary-color"> Festivalist </h1> 
         </div>  
 
         <div class="col d-flex flex-row-reverse mt-2">
-            <i class="fas fa-search icon-custom search"></i>
+            <i title="Search Filters" onclick="slideSearch()" class="fas fa-bars icon-custom search" id="search-activate-btn"></i>
         </div>
     </div>
 </div>
