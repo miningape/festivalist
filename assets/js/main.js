@@ -5,8 +5,8 @@ let pins = [];
 
 let filter_set = {};
 
-// Useless function called on start for testing
-main = () => {
+// "main" function called on start
+const main = () => {
     console.log("Testing")
 
     let filterBTNs = document.querySelectorAll('.filterer');
@@ -79,8 +79,8 @@ function hideInfo() {
     document.querySelector('.info').style.display = 'none';
 
     if ( map ) {
+        map.setCenter( {lat: 0, lng: 0} );
         map.setZoom(2.8);
-        map.panTo( {lat: 0, lng: 0} );
     }
 }
 
@@ -106,7 +106,6 @@ function filter(filterType, filterValue) {
         filter_set[filterType] = {};
         filter(filterType, filterValue);
     }
-    
 
     console.log(filter_set);
     pins.forEach( pin => {
@@ -115,7 +114,7 @@ function filter(filterType, filterValue) {
 
     pins = [];
 
-    // Only filters by country right now
+    // Only filters by country right now (badly)
 
     const filteredFestivals = FestivalsJSON.festival_list.filter( festival => festival.location.includes(filterValue) );
     addPins( filteredFestivals );
