@@ -3,6 +3,7 @@
     --primary-color:#000000;
     --secondary-color:#ffa600;
     --tertiary-color:#ffffff;
+    --close-btn-color:red;
     /* to use put them in var() */
 }
 
@@ -68,8 +69,9 @@ html, body {
     right: 2vw;
 }
 
-.info > #close-btn :hover {
-    color: red;
+#close-btn:hover {
+    color: var(--close-btn-color);
+    cursor: pointer;
 }
 
 .border-custom {
