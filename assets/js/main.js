@@ -30,7 +30,10 @@ function initMap() {
     map = new google.maps.Map(document.querySelector("#map"), {
         center: { lat: 0, lng: 0 },
         zoom: 2.8,
+        minZoom: 2.8,
     });
+
+    //  map.setOptions({maxZoom:/*For example*/5});
 
     addPins( FestivalsJSON.festival_list );
 }
