@@ -40,8 +40,7 @@ html, body {
     animation: all 1s linear 1;
 }
 
-@keyframes rotation {
-   
+@keyframes rotation { 
     100% {
         transform: rotate(360deg);
     }
@@ -69,7 +68,7 @@ html, body {
     right: 2vw;
 }
 
-#close-btn:hover {
+.info > #close-btn:hover {
     color: var(--close-btn-color);
     cursor: pointer;
 }
