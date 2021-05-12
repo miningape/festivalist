@@ -14,13 +14,19 @@
         <!-- Probably not a good way of loading the database
             it just creates a script that is generated from the database
          -->
+
         <script>
             /* 
                 The <%%> tag adds JSON (that was sent from server) and adds it to this HTML
                 script tag before it is sent to the user, vscode is stupid so it thinks this is an error but its not
             */
+            /* jshint ignore:start */
             const FestivalsJSON = <%- JSON.stringify(DATABASE) %>;
+            /* jshint ignore:end */
         </script>
+        
+
+
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="assets/css/style.css">

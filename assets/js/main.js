@@ -1,11 +1,25 @@
-let zoomLevel = 4.5;
+let zoomLevel = 5.5;
 let lastClick = null;
+let map = null;
+let pins = [];
+
+let filter_set = {};
 
 // Useless function called on start for testing
-(main = () => {
+main = () => {
     console.log("Testing")
-    
-})()
+
+    let filterBTNs = document.querySelectorAll('.filterer');
+    filterBTNs.forEach( btn => {
+        btn.addEventListener("click", () => {
+            btn.classList.toggle("btn-light");
+            btn.classList.toggle("btn-warning");
+            filter( btn.dataset.type, btn.dataset.filter );
+        });
+    });
+}
+
+window.onload = ()=>{main()};
 
 /**
  * Initializes the map on the screen
@@ -13,19 +27,26 @@ let lastClick = null;
  * called through the callback= property on the script element that includes the maps api
  */
 function initMap() {
-    const info = document.querySelector(".info");
-
-    const map = new google.maps.Map(document.querySelector("#map"), {
+    map = new google.maps.Map(document.querySelector("#map"), {
         center: { lat: 0, lng: 0 },
-        zoom: 2.7,
+        zoom: 2.8,
     });
 
-    FestivalsJSON.festival_list.forEach( festival => {
+    addPins( FestivalsJSON.festival_list );
+}
+
+function addPins( pinArray ) {
+    console.log(pinArray)
+    const info = document.querySelector(".info");
+
+    pinArray.forEach( festival => {
         const marker = new google.maps.Marker( {
             position: festival.coords,
             title: festival.name,
             map: map,
         } );
+
+        pins.push(marker);
 
         marker.addListener( "click", () => {
             // On click we change the info in the info bar
@@ -42,7 +63,7 @@ function initMap() {
             map.panTo( festival.coords );
 
             if ( lastClick != festival.name ) {
-                zoomLevel = 4.5;
+                zoomLevel = 5.5;
                 lastClick = festival.name;
             }
             map.setZoom( zoomLevel += 0.5 );
@@ -50,11 +71,17 @@ function initMap() {
             // Scroll down to information
             window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
         });
-    } )
+    } );
 }
 
 function hideInfo() {
+    // TODO: https://codeburst.io/the-off-click-7cbc08bb3df5
     document.querySelector('.info').style.display = 'none';
+
+    if ( map ) {
+        map.setZoom(2.8);
+        map.panTo( {lat: 0, lng: 0} );
+    }
 }
 
 function slideSearch() {
@@ -66,6 +93,32 @@ function slideSearch() {
     btn.classList.toggle("rotate")
     btn.classList.toggle("fa-bars");
     btn.classList.toggle("fa-times");
+}
+
+function filter(filterType, filterValue) {
+    // If this type if filter is present
+    if ( filter_set[filterType] ) {
+        // Toggle 1 or 0 for whether this filter is applied or not
+        // If it doesnt exist coalesc to 1
+        filter_set[filterType][filterValue] = 1 - (filter_set[filterType][filterValue] || 0);
+    // If this type of filter isnt present, create it and try again
+    } else {
+        filter_set[filterType] = {};
+        filter(filterType, filterValue);
+    }
+    
+
+    console.log(filter_set);
+    pins.forEach( pin => {
+        pin.setMap(null);
+    } );
+
+    pins = [];
+
+    // Only filters by country right now
+
+    const filteredFestivals = FestivalsJSON.festival_list.filter( festival => festival.location.includes(filterValue) );
+    addPins( filteredFestivals );
 }
 
 
