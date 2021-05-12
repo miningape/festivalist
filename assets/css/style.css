@@ -121,3 +121,7 @@ html, body {
 .tertiary-background-color {
     background-color: var(--tertiary-color);
 }
+
+#festival-name {
+    font-size: 24px;
+}
