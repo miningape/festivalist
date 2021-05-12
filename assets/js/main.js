@@ -1,5 +1,6 @@
 let zoomLevel = 5.5;
 let lastClick = null;
+let FestivalsJSON = null;
 let map = null;
 let pins = [];
 
@@ -8,15 +9,6 @@ let filter_set = {};
 // "main" function called on start
 const main = () => {
     console.log("Testing")
-
-    let filterBTNs = document.querySelectorAll('.filterer');
-    filterBTNs.forEach( btn => {
-        btn.addEventListener("click", () => {
-            btn.classList.toggle("btn-light");
-            btn.classList.toggle("btn-warning");
-            filter( btn.dataset.type, btn.dataset.filter );
-        });
-    });
 }
 
 window.onload = ()=>{main()};
@@ -35,7 +27,28 @@ function initMap() {
 
     //  map.setOptions({maxZoom:/*For example*/5});
 
-    addPins( FestivalsJSON.festival_list );
+    // Before adding pins load our data
+    fetch('/api/festival-list').then( response => response.json() ).then( data => {
+        // Save data in global
+        FestivalsJSON = data;
+        
+        // Once data is loaded we allow search filters to be used
+        document.querySelector('#search-activate-btn').addEventListener( 'click', () => {
+            slideSearch();
+        });
+
+        let filterBTNs = document.querySelectorAll('.filterer');
+        filterBTNs.forEach( btn => {
+            btn.addEventListener("click", () => {
+                btn.classList.toggle("btn-light");
+                btn.classList.toggle("btn-warning");
+                filter( btn.dataset.type, btn.dataset.filter );
+            });
+        });
+
+        // Finally add the pins to the map
+        addPins( FestivalsJSON.festival_list );
+    } );
 }
 
 function addPins( pinArray ) {
@@ -107,20 +120,43 @@ function filter(filterType, filterValue) {
     // If this type of filter isnt present, create it and try again
     } else {
         filter_set[filterType] = {};
-        filter(filterType, filterValue);
+        return filter(filterType, filterValue);
     }
 
-    console.log(filter_set);
+    console.log(filter_set)
+
+    // Clear pins on game
     pins.forEach( pin => {
         pin.setMap(null);
     } );
 
     pins = [];
 
-    // Only filters by country right now (badly)
+    // Actual Filtering
+    const filteredFestivals = FestivalsJSON.festival_list.filter( festival => {
+        let returnFlag = false;
 
-    const filteredFestivals = FestivalsJSON.festival_list.filter( festival => festival.location.includes(filterValue) );
-    addPins( filteredFestivals );
+        // forEach can be optimised to for()
+        Object.keys( filter_set ).forEach( type_key => {
+            Object.keys( filter_set[type_key] ).forEach( specific_key => {
+                if ( filter_set[type_key][specific_key] == 1 && festival[type_key].includes( specific_key ) ) returnFlag = true;
+            } )
+        } )
+        
+        return returnFlag;
+    } );
+
+    // Check if none of the buttons are pressed
+    let noneSelected = true;
+    Object.keys( filter_set ).forEach( type_key => {
+        Object.keys( filter_set[type_key] ).forEach( specific_key => {
+            if ( !!filter_set[type_key][specific_key] ) noneSelected = false;
+        } )
+    } )
+
+    // If nothing is selected display all of the pins otherwise show the filtered ones
+    if (noneSelected == true) addPins(FestivalsJSON.festival_list);
+    else addPins( filteredFestivals );
 }
 
 

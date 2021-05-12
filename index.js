@@ -15,7 +15,9 @@ const DATABASE = {
             locationDescription: "An unused farm in Roskilde, Denmark",
             lineup: "Kendrick Lamar, Tyler the Creator",
             price: "DKK 69",
-            location: ["EUROPE"],
+            
+            /* SEARCH FILTER STUFF - MUST ALL BE CAPS */
+            LOCATION: ["EUROPE"],
 
             // coords is the location of the pin on the map
             coords: {
@@ -29,7 +31,7 @@ const DATABASE = {
             locationDescription: "Empire Polo Club in Indio, California",
             lineup: "To Be Announced, Rex Orange County",
             price: "USD 300",
-            location: ["USA", "AMERICAS"],
+            LOCATION: ["USA", "AMERICAS"],
             coords: {
                 lat: 33.694756, 
                 lng: -116.152558
@@ -41,7 +43,7 @@ const DATABASE = {
             locationDescription: "De Schorre Recreation Ground, Boom, Belgium",
             lineup: "Billie Eilish, Lewis Copaldi, Marchmello, Camila Cabelo, Stormzy, Post Malone",
             price: "EUR 69",
-            location: ["EUROPE"],
+            LOCATION: ["EUROPE"],
             coords: {
                 lat: 51.091666, 
                 lng: 4.379873
@@ -53,7 +55,7 @@ const DATABASE = {
             locationDescription: "Victoria Park, London, England",
             lineup: "Fals, Jamie XX, Jorja Smith",
             price: "GBP 69",
-            location: ["EUROPE"],
+            LOCATION: ["EUROPE"],
             coords: {
                 lat: 51.536390, 
                 lng: -0.039803
@@ -65,7 +67,7 @@ const DATABASE = {
             locationDescription: "Nevada, USA",
             lineup: "Jeff",
             price: "USD 69",
-            location: ["USA", "AMERICAS"],
+            LOCATION: ["USA", "AMERICAS"],
             coords: {
                 lat: 40.786900,
                 lng: -119.207248
@@ -84,11 +86,15 @@ app.set('view engine', 'ejs');
 
 /* URIs the User Can Access */
 app.get('/', (req, res) => {
-    res.render('primary', {DATABASE: DATABASE});
+    res.render('primary');
 })
 
 app.get('/list', (req, res) => {
     res.render('secondary');
+})
+
+app.get('/api/festival-list', (req, res) => {
+    res.json( DATABASE );
 })
 
 /* Start the server */
