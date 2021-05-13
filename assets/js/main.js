@@ -52,7 +52,6 @@ function initMap() {
 }
 
 function addPins( pinArray ) {
-    console.log(pinArray)
     const info = document.querySelector(".info");
 
     pinArray.forEach( festival => {
@@ -70,9 +69,6 @@ function addPins( pinArray ) {
             default: 
                 icon = null;
         }
-
-        console.log(festival.TYPE)
-
 
         const marker = new google.maps.Marker( {
             position: festival.coords,
@@ -151,27 +147,45 @@ function filter(filterType, filterValue) {
 
     pins = [];
 
+    // See which categories are actually pressed
+    let selectObj = {};
+    Object.keys( filter_set ).forEach( type_key => {
+        let noneSelected = true;
+
+        Object.keys( filter_set[type_key] ).forEach( specific_key => {
+            if ( !!filter_set[type_key][specific_key] ) noneSelected = false;
+        } )
+
+        if ( !noneSelected ) selectObj[type_key] = false;
+        else selectObj[type_key] = true;
+    } )
+
+    // Check if none of the buttons are pressed
+    let noneSelected = Object.keys(selectObj).reduce( (acc, cur) => {
+        acc = acc && selectObj[cur];
+    }, true )
+
     // Actual Filtering
     const filteredFestivals = FestivalsJSON.festival_list.filter( festival => {
-        let returnFlag = false;
+        let returnFlag = true;
 
         // forEach can be optimised to for()
         Object.keys( filter_set ).forEach( type_key => {
-            Object.keys( filter_set[type_key] ).forEach( specific_key => {
-                if ( filter_set[type_key][specific_key] == 1 && festival[type_key].includes( specific_key ) ) returnFlag = true;
-            } )
+            let sameFlag = false;
+
+            if ( !selectObj[type_key] ) {
+                Object.keys( filter_set[type_key] ).forEach( specific_key => {
+                    if ( filter_set[type_key][specific_key] == 1 && festival[type_key].includes( specific_key ) ) sameFlag = true;
+                } )
+            } else { sameFlag = true; }
+
+            returnFlag = returnFlag && sameFlag;
         } )
         
         return returnFlag;
     } );
 
-    // Check if none of the buttons are pressed
-    let noneSelected = true;
-    Object.keys( filter_set ).forEach( type_key => {
-        Object.keys( filter_set[type_key] ).forEach( specific_key => {
-            if ( !!filter_set[type_key][specific_key] ) noneSelected = false;
-        } )
-    } )
+    
 
     // If nothing is selected display all of the pins otherwise show the filtered ones
     if (noneSelected == true) addPins(FestivalsJSON.festival_list);
