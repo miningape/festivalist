@@ -56,10 +56,29 @@ function addPins( pinArray ) {
     const info = document.querySelector(".info");
 
     pinArray.forEach( festival => {
+        let icon;
+
+        switch ( festival.TYPE ) {
+            case "MUSIC":
+                icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                break;
+            
+            case "FILM":
+                icon = 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
+                break;
+
+            default: 
+                icon = null;
+        }
+
+        console.log(festival.TYPE)
+
+
         const marker = new google.maps.Marker( {
             position: festival.coords,
             title: festival.name,
             map: map,
+            icon: icon,
         } );
 
         pins.push(marker);
