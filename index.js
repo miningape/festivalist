@@ -2,7 +2,7 @@
 // https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT ||3000;
 
 
 // Example of what our database could look like, its just JSON stored on another secure location

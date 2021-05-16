@@ -126,8 +126,10 @@ function slideSearch() {
     btn.classList.toggle("fa-times");
 }
 
+
+// This function makes the search filters work, (i.e. makes chooses which festivals to display based on the buttons pressed)
 function filter(filterType, filterValue) {
-    // If this type if filter is present
+    // If this type if filter is present        
     if ( filter_set[filterType] ) {
         // Toggle 1 or 0 for whether this filter is applied or not
         // If it doesnt exist coalesc to 1
@@ -184,9 +186,7 @@ function filter(filterType, filterValue) {
         } )
         
         return returnFlag;
-    } );
-
-    
+    } ); 
 
     // If nothing is selected display all of the pins otherwise show the filtered ones
     if (noneSelected == true) addPins(FestivalsJSON.festival_list);
