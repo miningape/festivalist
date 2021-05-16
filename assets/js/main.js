@@ -173,6 +173,7 @@ function filter(filterType, filterValue) {
         Object.keys( filter_set ).forEach( type_key => {
             let sameFlag = false;
 
+            // If this category is not being used, we just allow all festivals to go through
             if ( !selectObj[type_key] ) {
                 Object.keys( filter_set[type_key] ).forEach( specific_key => {
                     if ( filter_set[type_key][specific_key] == 1 && festival[type_key].includes( specific_key ) ) sameFlag = true;
