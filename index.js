@@ -2,7 +2,7 @@
 // https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT ||3000;
+const PORT = process.env.PORT || 3000;
 
 
 // Example of what our database could look like, its just JSON stored on another secure location
@@ -273,6 +273,11 @@ app.get('/list', (req, res) => {
 
 app.get('/api/festival-list', (req, res) => {
     res.json( DATABASE );
+})
+
+app.get('*', (req, res) => {
+    res.status(404);
+    res.send(`url: ${ req.url }`)
 })
 
 /* Start the server */
