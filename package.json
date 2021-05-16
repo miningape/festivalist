@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "RUC Project",
   "main": "index.js",
-  "start": "node index.js",
   "scripts": {
-    "test": "¨"
+    "test": "¨",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
