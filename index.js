@@ -1,17 +1,23 @@
 // Basically just the first example from here:
 // https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 
-const mongoose = require('mongoose')
+// Import our schemas
+const { festivalSchema } = require('./backend/shemas');
 
-const PORT = process.env.PORT || 3000;
-const DBpass = process.env.password || require('./uri').password;
-const DBname = process.env.name     || require('./uri').cluserName;
+// Environment variables that affect runtime, but are hidden from those with access to the source
+const PORT = process.env.PORT || 3000;                                          // What port server is hosted on
 
+// Import environment variables that are hidden, to safely connect to database
+const env = process.env || require('./backend/uri');
+
+// Format a string to connect to the 
 const DBURI = `mongodb+srv://festival:${DBpass}@cluster-festivalist.xlu6x.mongodb.net/${DBname}?retryWrites=true&w=majority`;
+//console.log("DB URI IS: ", DBURI);
 
-console.log("DB URI IS: ", DBURI);
+
 
 
 // Works when running on heroku, or if you have the uri file
@@ -26,14 +32,15 @@ db.once('open', () => {
         }
     })
     
-    const user = mongoose.model('user', userSchema);
+    const user = mongoose.model('user', userSchema, 'example');
 
 
     
-    user.find({username: /jef/}, (err, user) => {
+    user.find({}, (err, user) => {
         console.log(user)
     })
 })
+
 
 
 // Example of what our database could look like, its just JSON stored on another secure location
@@ -49,7 +56,7 @@ const DATABASE = {
             
             /* SEARCH FILTER STUFF - MUST ALL BE CAPS */
             LOCATION: ["EUROPE"],
-            TYPE: "MUSIC",
+            TYPE: ["MUSIC"],
 
             // coords is the location of the pin on the map
             coords: {
@@ -65,7 +72,7 @@ const DATABASE = {
             price: "USD 300",
 
             LOCATION: ["USA", "AMERICAS"],
-            TYPE: "MUSIC",
+            TYPE: ["MUSIC"],
 
             coords: {
                 lat: 33.694756, 
@@ -80,7 +87,7 @@ const DATABASE = {
             price: "EUR 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "MUSIC",
+            TYPE: ["MUSIC"],
 
             coords: {
                 lat: 51.091666, 
@@ -95,7 +102,7 @@ const DATABASE = {
             price: "GBP 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "MUSIC",
+            TYPE: ["MUSIC"],
 
             coords: {
                 lat: 51.536390, 
@@ -110,7 +117,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["USA", "AMERICAS"],
-            TYPE: "MUSIC",
+            TYPE: ["MUSIC"],
 
             coords: {
                 lat: 40.786900,
@@ -125,7 +132,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: { 
                 lat: 45.405590,
@@ -140,7 +147,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {  
                 lat: 43.551256,
@@ -155,7 +162,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {   
                 lat: 37.852265,
@@ -170,7 +177,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {    
                 lat: 52.508496,
@@ -185,7 +192,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {     
                 lat: 55.945743,
@@ -200,7 +207,7 @@ const DATABASE = {
             price: "USD 69",
 
             LOCATION: ["EUROPE"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {      
                 lat: 46.168250,
@@ -215,7 +222,7 @@ const DATABASE = {
             price: "HKD 69",
 
             LOCATION: ["ASIA"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {       
                 lat: 22.294525,
@@ -230,7 +237,7 @@ const DATABASE = {
             price: "HKD 69",
 
             LOCATION: ["OTHER"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {       
                 lat: -37.815939,
@@ -245,7 +252,7 @@ const DATABASE = {
             price: "HKD 69",
 
             LOCATION: ["USA"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {       
                 lat: 43.646494,
@@ -260,7 +267,7 @@ const DATABASE = {
             price: "HKD 69",
 
             LOCATION: ["USA"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {        
                 lat: 40.393455, 
@@ -275,7 +282,7 @@ const DATABASE = {
             price: "HKD 69",
 
             LOCATION: ["USA"],
-            TYPE: "FILM",
+            TYPE: ["FILM"],
 
             coords: {        
                 lat: 40.703446,
