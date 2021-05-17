@@ -275,12 +275,23 @@ app.get('/api/festival-list', (req, res) => {
     res.json( DATABASE );
 })
 
+// Every other route is an error
 app.get('*', (req, res) => {
     res.status(404);
-    res.send(`url: ${ req.url }`)
+    if ( req.accepts('html') ) {
+        res.render('404', {URL: req.url})
+        return;
+    }
+
+    if ( req.accepts('json') ) {
+        res.send(`url not found: ${ req.url }`)
+        return;
+    }
+    
+    res.type('txt').send(`URL Not Found: ${ req.url }`);
 })
 
 /* Start the server */
 app.listen( PORT, () => {
-    console.log('Hosted On: localhost:3000 or 127.0.0.1:3000')
+    console.log('Hosted On: localhost:3000 or 127.0.0.1:3000, or heroku:80')
 })
