@@ -279,13 +279,15 @@ app.get('/api/festival-list', (req, res) => {
 app.get('*', (req, res) => {
     res.status(404);
 
-    if ( req.accepts('json') ) {
-        res.json({"error": "404: not found", "message": "couldn't GET" + req.url})
-        return;
-    }
+    
 
     if ( req.accepts('html') ) {
         res.render('404', {URL: req.url})
+        return;
+    }
+
+    if ( req.accepts('json') ) {
+        res.json({"error": "404: not found", "message": "couldn't GET" + req.url})
         return;
     }
     
