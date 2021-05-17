@@ -1,5 +1,3 @@
-// Basically just the first example from here:
-// https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -7,9 +5,10 @@ const app = express();
 // Import our schemas
 const { festivalSchema } = require('./backend/shemas');
 
-// Environment variables that affect runtime, but are hidden from those with access to the source
-const PORT = process.env.PORT || 3000;                                          // What port server is hosted on
+// Set the port we listen on, either the Heroku defaults, or 3000 if on local computer
+const PORT = process.env.PORT || 3000; 
 
+/* --------- only works when running on heroku, or if you have the uri.json file ----------- */
 // Import environment variables that are hidden, to safely connect to database
 let VARS;
 try {
@@ -18,17 +17,19 @@ try {
     VARS = process.env;
 }
 
-// Format a string to connect to the 
+// Format a string that is the database url
 const DBURI = `mongodb+srv://${VARS.project}:${VARS.password}@${VARS.cluster}.xlu6x.mongodb.net/${VARS.database}?retryWrites=true&w=majority`;
-//console.log("DB URI IS: ", DBURI);
 
-
-
-
-// Works when running on heroku, or if you have the uri file
+// Actually make connection to the database
 mongoose.connect(DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Save the connection so we can use it
 const db = mongoose.connection;
+
+// Check for any errors
 db.on('error', console.error.bind(console, 'connection error:'))
+
+// Once the db is open we can execute code
 db.once('open', () => {
     /* Start the server */
     app.listen( PORT, () => {
@@ -63,11 +64,14 @@ app.get('/api/festival-list', (req, res) => {
     } )
 })
 
-// Every other route is an error
-app.get('*', (req, res) => {
-    res.status(404);
-
+app.get('/api/query', (req, res) => {
+    res.send(req.query)
     
+});
+
+// Every other route is an error
+app.all('*', (req, res) => {
+    res.status(404);    
 
     if ( req.accepts('html') ) {
         res.render('404', {URL: req.url})
@@ -75,7 +79,7 @@ app.get('*', (req, res) => {
     }
 
     if ( req.accepts('json') ) {
-        res.json({"error": "404: not found", "message": "couldn't GET" + req.url})
+        res.json({"error": "404: not found", "message": "couldn't " + req.method + " " + req.url})
         return;
     }
     
