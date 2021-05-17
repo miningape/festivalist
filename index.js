@@ -11,7 +11,12 @@ const { festivalSchema } = require('./backend/shemas');
 const PORT = process.env.PORT || 3000;                                          // What port server is hosted on
 
 // Import environment variables that are hidden, to safely connect to database
-const VARS = require('./backend/uri') || process.env;
+let VARS;
+try {
+    VARS = require('./backend/uri.json');
+} catch( e ) {
+    VARS = process.env;
+}
 
 // Format a string to connect to the 
 const DBURI = `mongodb+srv://${VARS.project}:${VARS.password}@${VARS.cluster}.xlu6x.mongodb.net/${VARS.database}?retryWrites=true&w=majority`;
