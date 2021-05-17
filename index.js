@@ -278,13 +278,14 @@ app.get('/api/festival-list', (req, res) => {
 // Every other route is an error
 app.get('*', (req, res) => {
     res.status(404);
-    if ( req.accepts('html') ) {
-        res.render('404', {URL: req.url})
+
+    if ( req.accepts('json') ) {
+        res.json({"error": "404: not found", "message": "couldn't GET" + req.url})
         return;
     }
 
-    if ( req.accepts('json') ) {
-        res.send(`url not found: ${ req.url }`)
+    if ( req.accepts('html') ) {
+        res.render('404', {URL: req.url})
         return;
     }
     
