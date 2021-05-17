@@ -1,0 +1,2 @@
+// Heroku login: kcraigj@ruc.dk
+// Heroku passw: @festivalist1
