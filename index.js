@@ -11,7 +11,7 @@ const { festivalSchema } = require('./backend/shemas');
 const PORT = process.env.PORT || 3000;                                          // What port server is hosted on
 
 // Import environment variables that are hidden, to safely connect to database
-const VARS = process.env || require('./backend/uri');
+const VARS = require('./backend/uri') || process.env;
 
 // Format a string to connect to the 
 const DBURI = `mongodb+srv://${VARS.project}:${VARS.password}@${VARS.cluster}.xlu6x.mongodb.net/${VARS.database}?retryWrites=true&w=majority`;
@@ -25,25 +25,81 @@ mongoose.connect(DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
-    const userSchema = new mongoose.Schema({
-        username: {
-            type: String,
-            required: [true, 'Username Is Required']
-        }
-    })
-    
-    const user = mongoose.model('user', userSchema, 'example');
-
-
-    
-    user.find({}, (err, user) => {
-        console.log(user)
+    /* Start the server */
+    app.listen( PORT, () => {
+        console.log('Hosted On: localhost:3000 or 127.0.0.1:3000, or heroku:80')
     })
 })
 
 
+/* Kinda Like Settings For The Server */
+// Static HTML & CSS files, served on the '/assets' route
+app.use( '/assets', express.static(__dirname + '/assets') );
 
-// Example of what our database could look like, its just JSON stored on another secure location
+// Set view engine to EJS (just allows for a shortcut in the code)
+app.set('view engine', 'ejs');
+
+
+/* URIs the User Can Access */
+app.get('/', (req, res) => {
+    res.render('primary');
+})
+
+app.get('/list', (req, res) => {
+    res.render('secondary');
+})
+
+app.get('/api/festival-list', (req, res) => {
+    const Festival = mongoose.model('festival', festivalSchema, 'festivals');
+
+    Festival.find( {}, (err, DATABASE) => {
+        console.log(err)
+        res.json( DATABASE );
+    } )
+})
+
+// Every other route is an error
+app.get('*', (req, res) => {
+    res.status(404);
+
+    
+
+    if ( req.accepts('html') ) {
+        res.render('404', {URL: req.url})
+        return;
+    }
+
+    if ( req.accepts('json') ) {
+        res.json({"error": "404: not found", "message": "couldn't GET" + req.url})
+        return;
+    }
+    
+    res.type('txt').send(`URL Not Found: ${ req.url }`);
+})
+
+/**  ------------------------------ Every thing in the comment is uneeded code but shows db, as well as how we uploaded it to cloud --------------------------------------------------
+    // Code that pushes local DB to the cloud
+    // Create document              Model Name  Schema Used     Collection Name
+    const Festival = mongoose.model('festival', festivalSchema, 'festivals');
+
+    Festival.insertMany( DATABASE.festival_list.map( (festival) => {
+        return {
+            description: {
+                name: festival.name,
+                type: festival.type,
+                location: festival.locationDescription,
+                lineup: festival.lineup,
+                price: festival.price
+            },
+            LOCATION: festival.LOCATION,
+            TYPE: festival.TYPE,
+            coords: festival.coords
+        }
+    } ), (err) => {
+        console.log(err);
+    } )
+
+    // Example of what our database could look like, its just JSON stored on another secure location
 const DATABASE = {
     festival_list: [
         { 
@@ -54,7 +110,7 @@ const DATABASE = {
             lineup: "Kendrick Lamar, Tyler the Creator",
             price: "DKK 69",
             
-            /* SEARCH FILTER STUFF - MUST ALL BE CAPS */
+            // SEARCH FILTER STUFF - MUST ALL BE CAPS 
             LOCATION: ["EUROPE"],
             TYPE: ["MUSIC"],
 
@@ -292,47 +348,5 @@ const DATABASE = {
     ],
 };
 
-/* Kinda Like Settings For The Server */
-// Static HTML & CSS files, served on the '/assets' route
-app.use( '/assets', express.static(__dirname + '/assets') );
 
-// Set view engine to EJS (just allows for a shortcut in the code)
-app.set('view engine', 'ejs');
-
-
-/* URIs the User Can Access */
-app.get('/', (req, res) => {
-    res.render('primary');
-})
-
-app.get('/list', (req, res) => {
-    res.render('secondary');
-})
-
-app.get('/api/festival-list', (req, res) => {
-    res.json( DATABASE );
-})
-
-// Every other route is an error
-app.get('*', (req, res) => {
-    res.status(404);
-
-    
-
-    if ( req.accepts('html') ) {
-        res.render('404', {URL: req.url})
-        return;
-    }
-
-    if ( req.accepts('json') ) {
-        res.json({"error": "404: not found", "message": "couldn't GET" + req.url})
-        return;
-    }
-    
-    res.type('txt').send(`URL Not Found: ${ req.url }`);
-})
-
-/* Start the server */
-app.listen( PORT, () => {
-    console.log('Hosted On: localhost:3000 or 127.0.0.1:3000, or heroku:80')
-})
+ */

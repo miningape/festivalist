@@ -16,6 +16,6 @@ const festivalSchema = new Schema( {
         lat: Number,
         lng: Number
     }
-} );
+}, {typeKey: "$type"} );
 
 exports.festivalSchema = festivalSchema;

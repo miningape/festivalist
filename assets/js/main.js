@@ -250,7 +250,7 @@ function initMap() {
         });
 
         // Finally add the pins to the map
-        addPins( FestivalsJSON.festival_list );
+        addPins( data );
     } );
 }
 
@@ -286,11 +286,11 @@ function addPins( pinArray ) {
 
         marker.addListener( "click", () => {
             // On click we change the info in the info bar
-            document.querySelector("#festival-name").innerHTML      = festival.name;
-            document.querySelector("#festival-type").innerHTML      = 'Type: '      + festival.type;
-            document.querySelector("#festival-location").innerHTML  = 'Location: '  + festival.locationDescription;
-            document.querySelector("#festival-lineup").innerHTML    = 'Lineup: '    + festival.lineup;
-            document.querySelector("#festival-price").innerHTML     = 'Price: '     + festival.price;
+            document.querySelector("#festival-name").innerHTML      = festival.description.name;
+            document.querySelector("#festival-type").innerHTML      = 'Type: '      + festival.description.type;
+            document.querySelector("#festival-location").innerHTML  = 'Location: '  + festival.description.location;
+            document.querySelector("#festival-lineup").innerHTML    = 'Lineup: '    + festival.description.lineup;
+            document.querySelector("#festival-price").innerHTML     = 'Price: '     + festival.description.price;
             
             // Change the CSS of the info area so we can see it
             info.style.display = 'block';
