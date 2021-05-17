@@ -2,7 +2,34 @@
 // https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 const express = require('express');
 const app = express();
+
+const mongoose = require('mongoose')
+
 const PORT = process.env.PORT || 3000;
+const URI = process.env.uri || require('./uri').localURI;
+console.log(URI)
+
+
+// Works when running on heroku, or if you have the uri file
+mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', () => {
+    const userSchema = new mongoose.Schema({
+        username: {
+            type: String,
+            required: [true, 'Username Is Required']
+        }
+    })
+    
+    const user = mongoose.model('user', userSchema);
+
+
+    
+    user.find({username: /jef/}, (err, user) => {
+        console.log(user)
+    })
+})
 
 
 // Example of what our database could look like, its just JSON stored on another secure location
