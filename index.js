@@ -6,12 +6,16 @@ const app = express();
 const mongoose = require('mongoose')
 
 const PORT = process.env.PORT || 3000;
-const URI = process.env.uri || require('./uri').localURI;
-console.log(URI)
+const DBpass = process.env.password || require('./uri').password;
+const DBname = process.env.name     || require('./uri').cluserName;
+
+const DBURI = `mongodb+srv://festival:${DBpass}@cluster-festivalist.xlu6x.mongodb.net/${DBname}?retryWrites=true&w=majority`;
+
+console.log("DB URI IS: ", DBURI);
 
 
 // Works when running on heroku, or if you have the uri file
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
