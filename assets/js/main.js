@@ -230,11 +230,8 @@ function initMap() {
 
     //  map.setOptions({maxZoom:/*For example*/5});
 
-    // Before adding pins load our data
-    fetch('/api/festival-list').then( response => response.json() ).then( data => {
-        // Save data in global
-        FestivalsJSON = data;
-        
+    // Before adding pins load all festival data to show immediately
+    fetch('/api/query').then( response => response.json() ).then( data => {
         // Once data is loaded we allow search filters to be used
         document.querySelector('#search-activate-btn').addEventListener( 'click', () => {
             slideSearch();
@@ -372,6 +369,19 @@ function filter(filterType, filterValue) {
         acc = acc && selectObj[cur];
     }, true )
 
+    // Only keep categories that are selected
+    let query = "?";
+    Object.keys( selectObj ).forEach( type_key => {
+        Object.keys( filter_set[type_key] ).forEach( var_key => {
+            if ( !!filter_set[type_key][var_key] ) {
+                query += type_key + "=" + var_key + "&";
+            }
+        });
+    } )
+
+    console.log(query)
+
+    /*
     // Actual Filtering
     const filteredFestivals = FestivalsJSON.festival_list.filter( festival => {
         let returnFlag = true;
@@ -392,10 +402,11 @@ function filter(filterType, filterValue) {
         
         return returnFlag;
     } ); 
+    */
 
-    // If nothing is selected display all of the pins otherwise show the filtered ones
-    if (noneSelected == true) addPins(FestivalsJSON.festival_list);
-    else addPins( filteredFestivals );
+    fetch('/api/query' + query).then( response => response.json() ).then( data => {
+        addPins (data)
+    } );
 }
 
 

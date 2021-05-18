@@ -26,11 +26,16 @@ mongoose.connect(DBURI, { useNewUrlParser: true, useUnifiedTopology: true });
 // Save the connection so we can use it
 const db = mongoose.connection;
 
+let Festival ;
+
 // Check for any errors
 db.on('error', console.error.bind(console, 'connection error:'))
 
 // Once the db is open we can execute code
 db.once('open', () => {
+    console.log("Connected to DataBase successfully");
+
+    Festival = mongoose.model('festival', festivalSchema, 'festivals');
     /* Start the server */
     app.listen( PORT, () => {
         console.log('Hosted On: localhost:3000 or 127.0.0.1:3000, or heroku:80')
@@ -45,7 +50,6 @@ app.use( '/assets', express.static(__dirname + '/assets') );
 // Set view engine to EJS (just allows for a shortcut in the code)
 app.set('view engine', 'ejs');
 
-
 /* URIs the User Can Access */
 app.get('/', (req, res) => {
     res.render('primary');
@@ -55,17 +59,35 @@ app.get('/list', (req, res) => {
     res.render('secondary');
 })
 
-app.get('/api/festival-list', (req, res) => {
-    const Festival = mongoose.model('festival', festivalSchema, 'festivals');
-
-    Festival.find( {}, (err, DATABASE) => {
-        console.log(err)
-        res.json( DATABASE );
-    } )
-})
-
 app.get('/api/query', (req, res) => {
-    res.send(req.query)
+    console.log("API QUERY: " + JSON.stringify(req.query))
+    //res.send(req.query.name.reduce((acc, name) => acc + "<h1>" + name + "</h1>", ""))
+
+    //console.log(req.query.location, req.query.type || [])
+
+    let error = [];
+
+    // Build query based on queryable fields in the database
+    const query = Object.keys( req.query ).reduce( (acc, cur) => {
+        if (["LOCATION", "TYPE", "PRICE"].includes(cur.toUpperCase())) {
+            acc[cur.toUpperCase()] = {$in: typeof req.query[cur] == "object" ? req.query[cur] : [req.query[cur]]}; 
+        } else {
+            error.push(cur);
+        }
+        return acc;
+    }, {} )
+
+    // Do the query
+    Festival.find( query, (err, array) => {
+        if (error.length == 0 && err == null) {
+            // Return just info if there are no problems
+            res.json( array );
+        } else {
+            // Return Error messages if there was a problem with search params
+            res.json(error.reduce( (acc, cur) => {acc[cur] = "Invalid Search Parameter"; return acc}, {ERROR: "PROBLEM WITH QUERY", MongoDBError: err, RESULT_IGNORED_PROBLEMS: array} ));
+        }
+        
+    } )
     
 });
 
