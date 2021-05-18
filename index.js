@@ -59,6 +59,10 @@ app.get('/list', (req, res) => {
     res.render('secondary');
 })
 
+app.get('/api/docs', (req, res) => {
+    res.send("Nothing here yet.")
+})
+
 app.get('/api/query', (req, res) => {
     console.log("API QUERY: " + JSON.stringify(req.query))
     //res.send(req.query.name.reduce((acc, name) => acc + "<h1>" + name + "</h1>", ""))
