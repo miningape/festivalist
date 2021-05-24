@@ -52,8 +52,12 @@ app.set('view engine', 'ejs');
 
 /* URIs the User Can Access */
 app.get('/', (req, res) => {
-    res.render('primary');
+    res.redirect('/map');
 })
+
+app.get('/map, (req, res) => {
+    res.render('primary');
+});
 
 app.get('/list', (req, res) => {
     res.render('secondary');
