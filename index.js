@@ -64,11 +64,6 @@ app.get('/list', (req, res) => {
 });
 
 app.get('/api/query', (req, res) => {
-    console.log("API QUERY: " + JSON.stringify(req.query))
-    //res.send(req.query.name.reduce((acc, name) => acc + "<h1>" + name + "</h1>", ""))
-
-    //console.log(req.query.location, req.query.type || [])
-
     let error = [];
 
     // Build query based on queryable fields in the database
@@ -96,21 +91,19 @@ app.get('/api/query', (req, res) => {
 });
 
 // Every other route is an error
-app.all('*', (req, res) => {
+app.use( (req, res, next) => {
     res.status(404);    
 
     if ( req.accepts('html') ) {
         res.render('404', {URL: req.url})
-        return;
     }
 
     if ( req.accepts('json') ) {
         res.json({"error": "404: not found", "message": "couldn't " + req.method + " " + req.url})
-        return;
     }
     
     res.type('txt').send(`URL Not Found: ${ req.url }`);
-})
+} );
 
 /**  ------------------------------ Every thing in the comment is uneeded code but shows db, as well as how we uploaded it to cloud --------------------------------------------------
     // Code that pushes local DB to the cloud
