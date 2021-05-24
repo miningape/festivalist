@@ -53,15 +53,15 @@ app.set('view engine', 'ejs');
 /* URIs the User Can Access */
 app.get('/', (req, res) => {
     res.redirect('/map');
-})
+});
 
-app.get('/map, (req, res) => {
+app.get('/map', (req, res) => {
     res.render('primary');
 });
 
 app.get('/list', (req, res) => {
     res.render('secondary');
-})
+});
 
 app.get('/api/query', (req, res) => {
     console.log("API QUERY: " + JSON.stringify(req.query))
