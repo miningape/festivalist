@@ -46,16 +46,6 @@ html, body {
     }
 }
 
-.hoverboarder {
-    border: 2px solid transparent;
-}
-
-.hoverboarder:hover {
-    border: 2px solid #ffffff;
-    background-color: #000000;
-    cursor: pointer;
-}
-
 
 
 .header .col :hover{
