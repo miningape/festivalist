@@ -32,7 +32,7 @@ let Festival ;
 db.on('error', console.error.bind(console, 'connection error:'))
 
 // Once the db is open we can execute code
-db.once('open', () => {
+db.on('open', () => {
     console.log("Connected to DataBase successfully");
 
     Festival = mongoose.model('festival', festivalSchema, 'festivals');
