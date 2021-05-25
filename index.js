@@ -1,6 +1,10 @@
 /* IMPORTING AND GETTING ENVIRONMENT VARIABLES */
 const express = require('express');
 const mongoose = require('mongoose');
+const compression = require('compression');
+const helmet = require('helmet')
+
+// Create server app
 const app = express();
 
 // Import our routes
@@ -8,6 +12,9 @@ const routes = require('./backend/routing');
 
 // Set the port we listen on, either the Heroku defaults, or 3000 if on local computer
 const PORT = process.env.PORT || 3000; 
+
+// Set node to production for speed
+process.env.NODE_ENV = 'production';
 
 /* --------- only works when running on heroku, or if you have the uri.json file ----------- */
 // Import environment variables that are hidden, to safely connect to database
@@ -24,6 +31,12 @@ try {
 
 // Set view engine to EJS (just allows for a shortcut in the code)
 app.set('view engine', 'ejs');
+
+// Compress all routes
+app.use(compression);
+
+// Protects from well known header vulnerabilities
+app.use(helmet)
 
 // Use the routes defined in /backend/routing.js
 app.use( '/', routes );
