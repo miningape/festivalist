@@ -46,13 +46,11 @@ app.use( (req, res) => {
 
     if ( req.accepts('html') ) {
         res.render('404', {URL: req.url})
-    }
-
-    if ( req.accepts('json') ) {
+    } else if ( req.accepts('json') ) {
         res.json({"error": "404: not found", "message": "couldn't " + req.method + " " + req.url})
+    } else {
+        res.type('txt').send(`URL Not Found: ${ req.url }`);
     }
-    
-    res.type('txt').send(`URL Not Found: ${ req.url }`);
 } );
 
 
