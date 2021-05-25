@@ -33,7 +33,6 @@ app.set('view engine', 'ejs');
 
 // Compress all routes
 app.use(compression());
-    
 
 // Use the routes defined in /backend/routing.js
 app.use( '/', routes );

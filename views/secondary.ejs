@@ -13,20 +13,26 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/search.css">
+
+     <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/list.js"></script>
+    
     
     <title>Festivalist</title>
+    <link rel="icon" href="/assets/img/logo32.png">
 </head>
-<body class="px-3 pb-3 mb-2 bg-dark text-white">
+<body class="px-3 bg-dark text-white">
     <%- include('partials/header', {page: 'secondary'}) %>
-    <%- include('partials/info') %>
-    <!-- Bootstrap JS bundle CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
-    <!-- Custom JS -->
-    <script src="assets/js/main.js"></script>
-
-    <!-- Components -->
-    <script src="assets/js/components/header.js" type="text/javascript" defer></script>
-    <script src="assets/js/components/info.js" type="text/javascript" defer></script>
+    <div class="helper">
+        <%- include('partials/search') %>
+        <div class="container text-center">
+            <div class="row gx-5 gy-5" id="list-container">
+            </div>
+        </div>
+        <%- include('partials/info') %>
+    </div>
 </body>
 </html>
