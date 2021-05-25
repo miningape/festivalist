@@ -32,7 +32,7 @@ let Festival ;
 db.on('error', console.error.bind(console, 'connection error:'))
 
 // Once the db is open we can execute code
-db.once('open', () => {
+db.on('open', () => {
     console.log("Connected to DataBase successfully");
 
     Festival = mongoose.model('festival', festivalSchema, 'festivals');
@@ -52,23 +52,18 @@ app.set('view engine', 'ejs');
 
 /* URIs the User Can Access */
 app.get('/', (req, res) => {
+    res.redirect('/map');
+});
+
+app.get('/map', (req, res) => {
     res.render('primary');
-})
+});
 
 app.get('/list', (req, res) => {
     res.render('secondary');
-})
-
-app.get('/api/docs', (req, res) => {
-    res.send("Nothing here yet.")
-})
+});
 
 app.get('/api/query', (req, res) => {
-    console.log("API QUERY: " + JSON.stringify(req.query))
-    //res.send(req.query.name.reduce((acc, name) => acc + "<h1>" + name + "</h1>", ""))
-
-    //console.log(req.query.location, req.query.type || [])
-
     let error = [];
 
     // Build query based on queryable fields in the database
@@ -95,21 +90,19 @@ app.get('/api/query', (req, res) => {
 });
 
 // Every other route is an error
-app.all('*', (req, res) => {
+app.use( (req, res, next) => {
     res.status(404);    
 
     if ( req.accepts('html') ) {
         res.render('404', {URL: req.url})
-        return;
     }
 
     if ( req.accepts('json') ) {
         res.json({"error": "404: not found", "message": "couldn't " + req.method + " " + req.url})
-        return;
     }
     
     res.type('txt').send(`URL Not Found: ${ req.url }`);
-})
+} );
 
 /**  ------------------------------ Every thing in the comment is uneeded code but shows db, as well as how we uploaded it to cloud --------------------------------------------------
     // Code that pushes local DB to the cloud
@@ -382,5 +375,9 @@ const DATABASE = {
     ],
 };
 
+
+app.get('/api/docs', (req, res) => {
+    res.send("Nothing here yet.")
+})
 
  */
