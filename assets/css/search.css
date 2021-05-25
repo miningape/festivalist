@@ -4,9 +4,7 @@
     color: #ffa600;
     z-index: 30;
     position: absolute;
-    max-width: 30vw;
     height: 100%;
-    right: -30vw;
     top: 0;
     clear: both;
     
@@ -19,9 +17,28 @@
 }
 
 
-.bar.active {
-    transform: translate(-30vw,0);
+.btn {
 }
 
-.btn {
+@media (max-width: 600px) {
+    .bar {
+        width: 100vw;
+        right: -100vw;
+    }
+
+    .bar.active {
+        transform: translate(-100vw,0);
+    }
+}
+
+@media (min-width: 600px) {
+    .bar {
+        width: 30vw;
+        right: -30vw;
+    }
+    
+    
+    .bar.active {
+        transform: translate(-30vw,0);
+    }
 }
