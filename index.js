@@ -92,7 +92,6 @@ app.get('/api/query', (req, res) => {
         }
         
     } )
-    
 });
 
 // Every other route is an error
