@@ -2,7 +2,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const compression = require('compression');
-const helmet = require('helmet')
 
 // Create server app
 const app = express();
@@ -14,7 +13,7 @@ const routes = require('./backend/routing');
 const PORT = process.env.PORT || 3000; 
 
 // Set node to production for speed
-process.env.NODE_ENV = 'production';
+//process.env.NODE_ENV = 'production';
 
 /* --------- only works when running on heroku, or if you have the uri.json file ----------- */
 // Import environment variables that are hidden, to safely connect to database
@@ -33,10 +32,8 @@ try {
 app.set('view engine', 'ejs');
 
 // Compress all routes
-app.use(compression);
+app.use(compression());
 
-// Protects from well known header vulnerabilities
-app.use(helmet)
 
 // Use the routes defined in /backend/routing.js
 app.use( '/', routes );

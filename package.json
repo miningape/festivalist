@@ -14,7 +14,7 @@
   "keywords": [
     "Festivals"
   ],
-  "author": "Dennis, Robert, Salma, Kyle",
+  "author": "Dennis, Salma, Kyle",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/miningape/festivalist/issues"
@@ -24,7 +24,6 @@
     "compression": "^1.7.4",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "helmet": "^4.6.0",
     "mongoose": "^5.12.9"
   }
 }
