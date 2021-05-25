@@ -29,7 +29,7 @@ function list( festivalArray ) {
             document.querySelector("#festival-type").innerHTML      = 'Type: '      + festival.description.type;
             document.querySelector("#festival-location").innerHTML  = 'Location: '  + festival.description.location;
             document.querySelector("#festival-lineup").innerHTML    = 'Lineup: '    + festival.description.lineup;
-            document.querySelector("#festival-price").innerHTML     = 'Price: '     + festival.description.price;
+            //document.querySelector("#festival-price").innerHTML     = 'Price: '     + festival.description.price;
             
             // Change the CSS of the info area so we can see it
             info.style.display = 'block';

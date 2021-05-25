@@ -6,7 +6,6 @@ const festivalSchema = new Schema( {
         type: String,
         location: String,
         lineup: String,
-        price: String
     },
 
     LOCATION: [String],
