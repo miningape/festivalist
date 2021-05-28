@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const compression = require('compression');
+const helmet = require('helmet');
 
 // Create server app
 const app = express();
@@ -33,6 +34,17 @@ app.set('view engine', 'ejs');
 
 // Compress all routes
 app.use(compression());
+
+// Use helmet to set headers for security
+app.use(helmet( {
+    'contentSecurityPolicy':{
+        directives: {
+            "default-src": ["'self'", "'unsafe-inline'", "ka-f.fontawesome.com", "cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/", "fonts.googleapis.com", "fonts.gstatic.com"],
+            "script-src": ["'self'", "kit.fontawesome.com", "cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/", "maps.googleapis.com" ],
+            "img-src": ["'self'", "maps.gstatic.com", "maps.google.com", "maps.googleapis.com", "data: *.w3.org"]
+        } 
+    }
+}))
 
 // Use the routes defined in /backend/routing.js
 app.use( '/', routes );
@@ -98,7 +110,6 @@ db.on('open', () => {
                 type: festival.type,
                 location: festival.locationDescription,
                 lineup: festival.lineup,
-                price: festival.price
             },
             LOCATION: festival.LOCATION,
             TYPE: festival.TYPE,

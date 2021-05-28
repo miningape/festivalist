@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Font awesome -->
+        <script src="https://kit.fontawesome.com/939bc6dcd6.js" crossorigin="anonymous"></script>
+        <!-- Bootstrap CSS CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <!-- Bootstrap JS bundle CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/search.css">
+
+        <!-- Custom JS -->
+        <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/maps.js"></script>
+
+        <title>Festivalist</title>
+        <link rel="icon" href="/assets/img/logo32.png">
+    </head>
+    <body class="bg-dark text-white">
+        <!-- Helper-holder is to set, width and height which allows the bar to slide in without lots of issues -->
+        
+            <!-- Include the head -->
+            <div class="header container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col d-flex flex-row mt-2">
+                        <!-- checks if page is primary and includes relevant data with a ternary operator -->
+                        <a href="/list" class="secondary-color">
+                            <!-- fa-map-marker-alt fa-search "></i> -->
+                            <i title="List View" class="fas fa-list-alt icon-custom"></i>
+                        </a>
+                    </div>
+            
+                    <div class="col text-center" title="Festivalist | Return to Top" >
+                        <h1 onclick="topFunction()" id="go-to-top-button" class="border px-3 pb-1 border-top-0 border-5 border-custom bg-dark secondary-color"> Festivalist </h1> 
+                    </div>  
+            
+                    <div class="col d-flex flex-row-reverse mt-2">
+                        <i title="Search Filters" class="fas fa-bars icon-custom search" id="search-activate-btn"></i>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="helper">
+            <!-- Include search --> 
+            <div id="search-bar" class="bar bg-dark">
+                <h1 class="display-4 d-flex justify-content-center"> <strong> <u> Filters </u> </strong> </h1>
+
+                <h3 class="display-6 px-5">Type</h3>
+                <div class="d-flex flex-wrap px-5 mx-5">
+                    <button type="button" data-type="TYPE" data-filter="FILM"   class="filterer btn btn-light m-2">Film         </button>
+                    <button type="button" data-type="TYPE" data-filter="MUSIC"      class="filterer btn btn-light m-2">Music    </button>
+                </div>
+                <h3 class="display-6 px-5">Location</h3>
+                <div class="d-flex flex-wrap px-5 mx-5">
+                    <button type="button" data-type="LOCATION" data-filter="EUROPE"   class="filterer btn btn-light m-2">Europe   </button>
+                    <button type="button" data-type="LOCATION" data-filter="USA"      class="filterer btn btn-light m-2">USA      </button>
+                    <button type="button" data-type="LOCATION" data-filter="AMERICAS" class="filterer btn btn-light m-2">Americas </button>
+                    <button type="button" data-type="LOCATION" data-filter="ASIA"     class="filterer btn btn-light m-2">Asia     </button>
+                    <button type="button" data-type="LOCATION" data-filter="AFRICA"   class="filterer btn btn-light m-2">Africa   </button>
+                    <button type="button" data-type="LOCATION" data-filter="OTHER"    class="filterer btn btn-light m-2">Other    </button>
+                </div>
+            </div>
+
+
+
+            <!-- div that postions map -->
+            <div class="d-flex justify-content-center">
+                <!-- div that holds the map-->
+                <div id="map" class="d-flex justify-content-center"></div>
+            </div>
+
+            <!-- Include info -->
+            <div class="info container secondary-color py-2">
+                <ul class="list-group">
+                    <li class="list-group-item primary-background-color secondary-color" id="festival-name">
+                    </li>
+                    <li class="list-group-item primary-background-color secondary-color" id="festival-type">
+                        Type: genre
+                    </li>
+                    <li class="list-group-item primary-background-color secondary-color" id="festival-location">
+                        Location:
+                    </li>
+                    <li class="list-group-item primary-background-color secondary-color" id="festival-lineup">
+                        Lineup:
+                    </li>
+                    <!--<li class="list-group-item primary-background-color secondary-color" id="festival-price">
+                        Ticket Price:
+                    </li>-->
+                </ul>
+                
+                <a onclick="hideInfo()" id="close-btn">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Maps API -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw9h1Ix5vNpOwcpoVlRkluEv69el6IOUc&callback=initMap" async>
+        </script>
+    </body>
+</html>

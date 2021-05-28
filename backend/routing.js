@@ -13,6 +13,10 @@ router.get('/map', (req, res) => {
     res.render('primary');
 });
 
+router.get('/map-test', (req, res) => {
+    res.sendFile(__dirname + '/testing/primary.html');
+});
+
 router.get('/list', (req, res) => {
     res.render('secondary');
 });
