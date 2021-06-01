@@ -40,7 +40,7 @@ app.use(helmet( {
     'contentSecurityPolicy':{
         directives: {
             "default-src": ["'self'", "'unsafe-inline'", "ka-f.fontawesome.com", "cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/", "fonts.googleapis.com", "fonts.gstatic.com"],
-            "script-src": ["'self'", "kit.fontawesome.com", "cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/", "maps.googleapis.com" ],
+            "script-src": ["'self'", "'unsafe-inline'", "kit.fontawesome.com", "cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/", "maps.googleapis.com" ],
             "img-src": ["'self'", "maps.gstatic.com", "maps.google.com", "maps.googleapis.com", "data: *.w3.org"]
         } 
     }
